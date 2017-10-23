@@ -19,7 +19,7 @@
     },
     data () {
       return {
-        sort: this.$route.params.type
+        sort: this.$route.params.category
       }
     },
     computed: {

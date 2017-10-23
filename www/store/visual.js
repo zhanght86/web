@@ -31,6 +31,7 @@ export const state = () => ({
     color: '#7d61e7'
   }],
   list: [{
+    id: 0,
     name: '电子政务教育云产品解决方案',
     pic: 'http://www.aliued.com/wp-content/uploads/2017/02/TB1A.SYPpXXXXXvapXXXXXXXXXX-1024-768.jpg',
     type: '例如',
@@ -38,6 +39,7 @@ export const state = () => ({
     thumb: 45,
     view: 0
   }, {
+    id: 0,
     name: '教育领域信息惠民工程',
     pic: 'http://www.aliued.com/wp-content/uploads/2017/02/A03454D8-47E1-44BD-827B-6B9BD8C4276D.jpg',
     type: '例如',
@@ -45,6 +47,7 @@ export const state = () => ({
     thumb: '45',
     view: 0
   }, {
+    id: 0,
     name: '全国汽车电子健康档案系统',
     pic: 'http://www.aliued.com/wp-content/uploads/2014/12/2520.jpg',
     type: '例如',
@@ -52,6 +55,7 @@ export const state = () => ({
     thumb: '45',
     view: 0
   }, {
+    id: 0,
     name: '坪山手机app系统',
     pic: 'http://www.aliued.com/wp-content/uploads/2014/12/2237.jpg',
     type: '例如',
@@ -59,6 +63,7 @@ export const state = () => ({
     thumb: '45',
     view: 0
   }, {
+    id: 0,
     name: '十张图看懂信息惠民',
     pic: 'http://www.aliued.com/wp-content/uploads/2017/02/TB1A.SYPpXXXXXvapXXXXXXXXXX-1024-768.jpg',
     type: '例如',
@@ -66,6 +71,7 @@ export const state = () => ({
     thumb: '45',
     view: 0
   }, {
+    id: 0,
     name: '智慧城市理论与大数据应用报告会（下）',
     pic: 'http://www.aliued.com/wp-content/uploads/2014/12/2237.jpg',
     type: '例如',
@@ -73,6 +79,7 @@ export const state = () => ({
     thumb: '45',
     view: 0
   }, {
+    id: 0,
     name: '智慧城市理论与大数据应用报告会（上）',
     pic: 'http://www.aliued.com/wp-content/uploads/2017/02/TB1A.SYPpXXXXXvapXXXXXXXXXX-1024-768.jpg',
     type: '例如',

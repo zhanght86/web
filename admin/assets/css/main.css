@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background: #fff;
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+.page {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.page>.el-col {
+    height: 100%;
+    display: inline-block;
+}
+
+.grid-content {
+    height: 100%;
+}
+
+.bg-dark {
+    background-color: #495060;
+}
+
+.el-menu {
+    border-right: none !important;
+}
+
+.el-submenu .el-menu-item {
+    min-width: 100px !important;
+}
+
+.h {
+    height: 100%;
+}
+
+.t-r {
+    text-align: right !important;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+}
+
+.row {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.col {
+    display: table-cell;
+}
+
+.v-m {
+    vertical-align: middle;
+}
+
+.mid-layout {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.w {
+    width: 100%;
+}
+
+.h {
+    height: 100%;
+}
+
+.t-r {
+    text-align: right;
+}
+
+.t-l {
+    text-align: center;
+}
+
+.t-c {
+    text-align: center;
+}
+
+.form {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form input[type=text],
+.form input[type=password] {
+    border: 1px solid #E3E4E8;
+    width: 100%;
+    background: #fff;
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+    padding: 0.7rem 1rem;
+}
+.el-menu--horizontal .el-menu-item{
+  transition:0.3s;
+}

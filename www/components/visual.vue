@@ -1,5 +1,5 @@
 <template>
-  <a href="#" class="visual">
+  <nuxt-link :to="'/visual/detail/' + data.id" class="visual">
     <span class="pic">
       <img :src="data.pic" alt="">
     </span>
@@ -17,7 +17,7 @@
         </i>
       </span>
     </span>
-  </a>
+  </nuxt-link>
 </template>
 <script>
   export default {

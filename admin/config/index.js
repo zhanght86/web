@@ -1,0 +1,69 @@
+export const layout = 'grid' // 布局 aside 、 head 、grid
+export const menu = [{
+  text: '首页',
+  icon: '',
+  url: '/',
+  children: null
+}, {
+  text: '用户管理',
+  icon: '',
+  url: '/user',
+  children: null
+}, {
+  text: '视觉设计',
+  icon: '',
+  url: '/visual',
+  children: [{
+    tag: '',
+    text: '全部',
+    url: '/visual/all',
+    color: '#666'
+  }, {
+    tag: 'ST',
+    text: '系统',
+    url: '/visual/system',
+    color: '#2d8ad9'
+  }, {
+    tag: 'AP',
+    text: '手机app',
+    url: '/visual/app',
+    color: '#d94447'
+  }, {
+    tag: 'WB',
+    text: '网站',
+    url: '/visual/web',
+    color: '#f58e00'
+  }, {
+    tag: 'PA',
+    text: '画册',
+    url: '/visual/book',
+    color: '#76be54'
+  }, {
+    tag: 'AM',
+    text: '动画',
+    url: '/visual/swf',
+    color: '#7d61e7'
+  }]
+}, {
+  text: '统计',
+  icon: '',
+  url: '/count',
+  children: [{
+    text: '客户统计',
+    url: '/count/customer'
+  }, {
+    text: '访问统计',
+    url: '/count/visit'
+  }, {
+    text: '用户统计',
+    url: '/count/user'
+  }]
+}, {
+  text: '设置',
+  icon: '',
+  url: '/setting',
+  children: [{
+    text: '切换布局',
+    url: '/setting/layout'
+  }]
+}]
