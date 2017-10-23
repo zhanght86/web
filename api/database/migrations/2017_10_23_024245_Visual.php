@@ -19,6 +19,7 @@ class Visual extends Migration
             $table->increments('id');
             $table->string('uId',16)->nullable();
             $table->string('name',30)->nullable();
+            $table->string('category',16)->nullable();
             $table->string('author',10)->nullable();
             $table->string('pic',30)->nullable();
             $table->text('content',300)->nullable();

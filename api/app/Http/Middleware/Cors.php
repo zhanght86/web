@@ -25,12 +25,16 @@ class Cors
         // }
         // return $next($request);
         // 写法一
-        $response = $next($request);
-        $response->header('Access-Control-Allow-Origin', '*');
-        $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
-        $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
-        $response->header('Access-Control-Allow-Credentials', 'false');
-        $response->header("Content-type:text/html charset","utf-8");
-        return $response;
+        // $response = $next($request);
+        // $response->header('Access-Control-Allow-Origin', '*');
+        // $response->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, Accept');
+        // $response->header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
+        // $response->header('Access-Control-Allow-Credentials', 'false');
+        // $response->header("Content-type:text/html charset","utf-8");
+        // return $response;
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+        return $next($request);
     }
 }

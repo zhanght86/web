@@ -20,7 +20,7 @@
       <div class="aside">
         <my-aside/>
       </div>
-      <nuxt/>
+      <nuxt style="background:#f9f9f9;"/>
     </div>
   </div>
 </template>

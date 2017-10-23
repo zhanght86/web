@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Carbon\Carbon;
 use App\Http\Model\Visual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,5 +25,17 @@ class VisualController extends Controller
             $Visuals = Visual::paginate($pageSize);
         }
         return $Visuals;
+    }
+    public function add (Request $request) {
+        $visual = new Visual;
+        $req = $request->all();
+        foreach ($req as $key => $value) {
+            if ($key != 'callback') {
+                $visual->$key = $value;
+            }
+        }
+        $visual->time = Carbon::now();
+        $visual->save();
+        return $visual;
     }
 }

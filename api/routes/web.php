@@ -15,3 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/visual', 'VisualController@list');
+Route::get('/visual/add', 'VisualController@add');
+Route::any('/upload', 'Upload@upfile');
