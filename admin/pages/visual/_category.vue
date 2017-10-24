@@ -33,8 +33,9 @@
         </el-form-item>
         <el-form-item label="封面：">
           <el-upload
+            :headers="header"
             class="upload-demo"
-            action="http://192.168.3.214:8000/upload"
+            action="http://192.168.3.214/web/api/public/upload"
             :file-list="form.pic">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -77,6 +78,11 @@
     layout: layout,
     data () {
       return {
+        header: {
+          'Access-Control-Allow-Origin': 'localhost',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, X-File-Name, X-File-Size, X-File-Type'
+        },
         addPop: false,
         list: [],
         query: {
@@ -95,7 +101,7 @@
       visual
     },
     created () {
-      axios.get('http://localhost:8000/visual').then(res => {
+      axios.get('http://192.168.3.214/web/api/public/visual').then(res => {
         this.list = res.data.data
       })
     },
@@ -108,6 +114,12 @@
       },
       onAdd () {
         this.addPop = true
+      },
+      onSuccess (res) {
+        console.log(res)
+      },
+      onChange (file) {
+        console.log(file)
       }
     }
   }

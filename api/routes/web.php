@@ -16,4 +16,4 @@ Route::get('/', function () {
 });
 Route::get('/visual', 'VisualController@list');
 Route::get('/visual/add', 'VisualController@add');
-Route::any('/upload', 'Upload@upfile');
+Route::match(['get', 'post'], '/upload', 'Upload@upfile');

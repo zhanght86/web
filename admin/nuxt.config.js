@@ -17,7 +17,7 @@ module.exports = {
   ** Customize the progress bar color
   */
   router: {
-    base: '/nuxtApp/dist/'
+    // base: '/nuxtApp/dist/'
   },
   loading: {
     color: '#FA5555',
