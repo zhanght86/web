@@ -13,18 +13,41 @@
           {{data.thumb}}
         </i>
         <i class="col v-m t-r">
-          {{data.time}}
+          {{time(data.time)}}
         </i>
       </span>
     </span>
   </nuxt-link>
 </template>
 <script>
+  import moment from 'moment'
+  moment.locale('en', {
+    relativeTime: {
+      future: 'in %s',
+      past: '%s以前',
+      s: '秒',
+      m: '1分钟',
+      mm: '%d分钟',
+      h: '1小时',
+      hh: '%d小时',
+      d: '1天',
+      dd: '%d天',
+      M: '1个月',
+      MM: '%d个月',
+      y: '1年',
+      yy: '%d年'
+    }
+  })
   export default {
     props: {
       data: {
         type: Object,
         default: {}
+      }
+    },
+    methods: {
+      time (time) {
+        return moment(time).startOf('hour').fromNow()
       }
     }
   }

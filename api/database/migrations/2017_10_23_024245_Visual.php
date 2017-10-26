@@ -17,8 +17,8 @@ class Visual extends Migration
         Schema::defaultStringLength(191);
         Schema::create('visual', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uId',16)->nullable();
-            $table->string('name',30)->nullable();
+            $table->string('uId',50)->nullable();
+            $table->string('name',50)->nullable();
             $table->string('category',16)->nullable();
             $table->string('author',10)->nullable();
             $table->string('pic',100)->nullable();
@@ -27,7 +27,6 @@ class Visual extends Migration
             $table->string('tag',40)->nullable();
             $table->string('thumb',5)->nullable();
             $table->string('view',5)->nullable();
-            $table->dateTime('time')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

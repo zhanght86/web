@@ -30,11 +30,10 @@ class VisualController extends Controller
         $visual = new Visual;
         $req = $request->all();
         foreach ($req as $key => $value) {
-            if ($key != 'callback') {
-                $visual->$key = $value;
-            }
+            $visual->$key = $value;
         }
-        $visual->time = Carbon::now();
+        $visual->uId = md5(uniqid());
+        $visual->created_at = Carbon::now();
         $visual->save();
         return $visual;
     }

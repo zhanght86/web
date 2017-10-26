@@ -20,7 +20,7 @@
     <el-dialog title="新建" :visible.sync="addPop" :close-on-click-modal="false">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="名称">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.name" placeholder="请输入项目名称！"></el-input>
         </el-form-item>
         <el-form-item label="分类">
           <el-radio-group v-model="form.category">
@@ -62,13 +62,13 @@
             name="upFile"
             :data="{type: 'package', file: this.file}"
             :action="upfile"
+            accept="zip"
             :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传zip、rar文件，且不超过10Mb</div>
+            <div slot="tip" class="el-upload__tip">只能上传zip、rar文件，且不超过100Mb</div>
           </el-upload>
         </el-form-item>
       </el-form>
-      {{form}}
       <div slot="footer" class="dialog-footer">
         <el-button @click="addPop = false">取 消</el-button>
         <el-button type="primary" @click="onSubmit">确 定</el-button>
@@ -101,7 +101,7 @@
         },
         form: {
           name: '',
-          category: '',
+          category: '系统',
           pic: '',
           content: '',
           package: ''
@@ -114,6 +114,7 @@
     created () {
       axios.get(this.visualServer).then(res => {
         this.list = res.data.data
+        // console.log(this.list)
       })
     },
     methods: {
