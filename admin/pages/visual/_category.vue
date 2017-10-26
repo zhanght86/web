@@ -35,18 +35,21 @@
           <el-upload
             class="upload-demo"
             name="upFile"
-            action="http://127.0.0.1:8000/upload"
-            :on-success="onSuccess"
-            :file-list="form.pic">
+            :data="{type: 'pic', file: this.file}"
+            :action="upfile"
+            :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            <div slot="tip" class="el-upload__tip">只能上传一张jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
         <el-form-item label="内容：">
           <el-upload
             class="upload-demo"
             drag
-            action="https://jsonplaceholder.typicode.com/posts/"
+            name="upFile"
+            :data="{type: 'content', file: this.file}"
+            :action="upfile"
+            :on-success="onSuccess"
             multiple>
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -56,8 +59,10 @@
         <el-form-item label="附件：">
           <el-upload
             class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :file-list="form.package">
+            name="upFile"
+            :data="{type: 'package', file: this.file}"
+            :action="upfile"
+            :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传zip、rar文件，且不超过10Mb</div>
           </el-upload>
@@ -66,21 +71,30 @@
       {{form}}
       <div slot="footer" class="dialog-footer">
         <el-button @click="addPop = false">取 消</el-button>
-        <el-button type="primary" @click="addPop = false">确 定</el-button>
+        <el-button type="primary" @click="onSubmit">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-  import {layout} from '../../config'
+  import {
+    layout,
+    upfile,
+    file,
+    visualServer,
+    visualAddServer
+  } from '../../config'
   import visual from '~/components/visual'
   import axios from 'axios'
-  import $ from 'jquery'
   export default {
     layout: layout,
     data () {
       return {
         addPop: false,
+        visualServer: visualServer,
+        visualAddServer: visualAddServer,
+        file: file,
+        upfile: upfile,
         list: [],
         query: {
           name: ''
@@ -88,9 +102,9 @@
         form: {
           name: '',
           category: '',
-          pic: [],
+          pic: '',
           content: '',
-          package: []
+          package: ''
         }
       }
     },
@@ -98,44 +112,24 @@
       visual
     },
     created () {
-      axios.get('http://192.168.3.214/web/api/public/visual').then(res => {
+      axios.get(this.visualServer).then(res => {
         this.list = res.data.data
       })
     },
     methods: {
-      upload (event) {
-        let file = event.file
-        const formData = new FormData()
-        formData.append('imgFile', file)
-        $.ajax({
-          type: 'post',
-          url: 'http://localhost:8000/upload',
-          crossDomain: true,
-          jsonp: 'jsoncallback',
-          header: {
-            'Access-Control-Allow-Origin': '127.0.0.1:3000'
-          },
-          data: formData,
-          contentType: false,
-          processData: false,
-          complete: function (data) {
-          },
-          success: function (res) {
-            console.log(res)
-          }
-        })
-      },
       onSubmit () {
-        console.log(this.form)
-      },
-      jump (url) {
-        this.$router.replace(url)
+        axios.get(this.visualAddServer, {
+          params: this.form
+        }).then(res => {
+          console.log(res)
+          this.addPop = false
+        })
       },
       onAdd () {
         this.addPop = true
       },
       onSuccess (res) {
-        console.log(res)
+        this.form[res.request.type] = res.data
       }
     }
   }

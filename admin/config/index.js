@@ -1,4 +1,9 @@
 export const layout = 'grid' // 布局 aside 、 head 、grid
+export const server = 'http://192.168.3.214/web/api/' // 服务器地址
+export const file = server + 'storage/app/uploads/' // 上传文件保存的路径
+export const upfile = server + 'public/upload' // 上传文件
+export const visualServer = server + 'public/visual'
+export const visualAddServer = server + 'public/visual/add'
 export const menu = [{
   text: '首页',
   icon: '',
