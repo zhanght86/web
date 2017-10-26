@@ -33,9 +33,10 @@
         </el-form-item>
         <el-form-item label="封面：">
           <el-upload
-            :headers="header"
             class="upload-demo"
-            action="http://192.168.3.214/web/api/public/upload"
+            name="upFile"
+            action="http://127.0.0.1:8000/upload"
+            :on-success="onSuccess"
             :file-list="form.pic">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -74,15 +75,11 @@
   import {layout} from '../../config'
   import visual from '~/components/visual'
   import axios from 'axios'
+  import $ from 'jquery'
   export default {
     layout: layout,
     data () {
       return {
-        header: {
-          'Access-Control-Allow-Origin': 'localhost',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, DELETE',
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, X-File-Name, X-File-Size, X-File-Type'
-        },
         addPop: false,
         list: [],
         query: {
@@ -106,6 +103,28 @@
       })
     },
     methods: {
+      upload (event) {
+        let file = event.file
+        const formData = new FormData()
+        formData.append('imgFile', file)
+        $.ajax({
+          type: 'post',
+          url: 'http://localhost:8000/upload',
+          crossDomain: true,
+          jsonp: 'jsoncallback',
+          header: {
+            'Access-Control-Allow-Origin': '127.0.0.1:3000'
+          },
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function (data) {
+          },
+          success: function (res) {
+            console.log(res)
+          }
+        })
+      },
       onSubmit () {
         console.log(this.form)
       },
@@ -117,9 +136,6 @@
       },
       onSuccess (res) {
         console.log(res)
-      },
-      onChange (file) {
-        console.log(file)
       }
     }
   }

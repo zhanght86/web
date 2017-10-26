@@ -38,4 +38,7 @@ class VisualController extends Controller
         $visual->save();
         return $visual;
     }
+    public function upfile (Request $request) {
+        return 1;
+    }
 }
