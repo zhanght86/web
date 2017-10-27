@@ -13,7 +13,7 @@
           {{data.thumb}}
         </i>
         <i class="col v-m t-r">
-          {{time(data.time)}}
+          {{time(data.created_time)}}
         </i>
       </span>
     </span>
@@ -21,6 +21,7 @@
 </template>
 <script>
   import moment from 'moment'
+  moment().utc()
   moment.locale('en', {
     relativeTime: {
       future: 'in %s',
@@ -33,12 +34,14 @@
       d: '1天',
       dd: '%d天',
       M: '1个月',
-      MM: '%d个月',
+      MM: '%d月',
       y: '1年',
       yy: '%d年'
     }
   })
   export default {
+    created () {
+    },
     props: {
       data: {
         type: Object,
@@ -47,7 +50,7 @@
     },
     methods: {
       time (time) {
-        return moment(time).startOf('hour').fromNow()
+        return moment(moment.unix(time).format()).fromNow()
       }
     }
   }

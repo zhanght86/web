@@ -7,7 +7,7 @@
         </el-form-item>
         <el-form-item class="g-8 t-r">
           <el-button type="primary" @click="onSubmit">查询</el-button>
-          <el-button type="danger" @click="onAdd">新建</el-button>
+          <el-button type="danger" @click="onAdd">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -17,7 +17,7 @@
       </el-col>
     </el-row>
     <!-- 新增弹出层 -->
-    <el-dialog title="新建" :visible.sync="addPop" :close-on-click-modal="false">
+    <el-dialog title="新增视觉设计" :visible.sync="addPop" :close-on-click-modal="false">
       <el-form ref="form" :model="form" label-width="80px">
         <el-form-item label="名称">
           <el-input v-model="form.name" placeholder="请输入项目名称！"></el-input>

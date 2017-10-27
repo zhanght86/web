@@ -25,6 +25,8 @@ class VisualController extends Controller
             $Visuals = Visual::paginate($pageSize);
         }
         return $Visuals;
+        // $time = time();
+        // return $time;
     }
     public function add (Request $request) {
         $visual = new Visual;
@@ -33,7 +35,10 @@ class VisualController extends Controller
             $visual->$key = $value;
         }
         $visual->uId = md5(uniqid());
-        $visual->created_at = Carbon::now();
+        $visual->created_time = time();
+        $visual->updated_time = time();
+        $visual->thumb = 0;
+        $visual->view = 0;
         $visual->save();
         return $visual;
     }
