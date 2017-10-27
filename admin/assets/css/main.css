@@ -234,3 +234,10 @@ i{
   display:inline-block;
   float:none;
 }
+.el-menu--horizontal{
+  border:none !important;
+}
+ul{
+  padding:0;
+  margin:0;
+}

@@ -6,13 +6,14 @@
           <el-input v-model="query.name" placeholder="请输入搜索关键词！" style="width:800px;"></el-input>
         </el-form-item>
         <el-form-item class="g-8 t-r">
-          <el-button type="primary" @click="onSubmit">查询</el-button>
-          <el-button type="danger" @click="onAdd">新增</el-button>
+          <el-button type="danger" @click="onReset">重置</el-button>
+          <el-button type="primary" @click="onQuery">查询</el-button>
+          <el-button type="success" @click="onAdd">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
-    <ul class="grid">
-      <li class="item g-4" v-for="(item, index) in list" :key="index" style="padding:10px;">
+    <ul class="grid" style="padding:5px;">
+      <li class="item g-4" v-for="(item, index) in list" :key="index" style="padding:5px;">
         <visual :data="item"/>
       </li>
     </ul>
@@ -195,6 +196,20 @@
       },
       onSuccess (res) {
         this.form[res.request.type] = res.data
+      },
+      onQuery () {
+        if (!this.query.name) {
+          this.$message({
+            message: '巧妇难为无米之炊，不给关键字，查个毛线！',
+            type: 'warning'
+          })
+        } else {
+          this.queryList(this.visualServer + '?name=' + this.query.name)
+        }
+      },
+      onReset () {
+        this.query.name = ''
+        this.queryList(this.visualServer)
       }
     }
   }

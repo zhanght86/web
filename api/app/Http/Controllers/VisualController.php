@@ -20,13 +20,11 @@ class VisualController extends Controller
             }
         }
         if(count($req)>0){
-            $Visuals = Visual::where($key, 'like', '%'.$value.'%')->paginate($pageSize);
+            $Visuals = Visual::where($key, 'like', '%'.$value.'%')->orderBy('created_time', 'desc')->paginate($pageSize);
         }else{
-            $Visuals = Visual::paginate($pageSize);
+            $Visuals = Visual::orderBy('created_time', 'desc')-> paginate($pageSize);
         }
         return $Visuals;
-        // $time = time();
-        // return $time;
     }
     public function add (Request $request) {
         $visual = new Visual;

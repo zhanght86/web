@@ -79,6 +79,11 @@
   border-radius:5px;
   border:1px solid #E8E8E8;
   overflow:hidden;
+  transition:0.3s;
+}
+.visual:hover{
+  transform:translate(0,-2px);
+  box-shadow:0 2px 5px #ccc;
 }
 .visual .pic{
   display:inline-block;
@@ -92,7 +97,7 @@
   position: relative;
 }
 .pic:hover img{
-  transform:scale(1.1)
+  /* transform:scale(1.1) */
 }
 .visual .info{
   background:#fff;
