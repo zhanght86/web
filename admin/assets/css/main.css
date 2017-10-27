@@ -27,6 +27,12 @@ body {
 .grid-content {
     height: 100%;
 }
+.grid{font-size:0;}
+.grid > .item{
+  display:inline-block;
+  height:100%;
+  vertical-align: top;
+}
 
 .bg-dark {
     background-color: #495060;
@@ -220,4 +226,11 @@ body {
 }
 i{
   font-style:normal;
+}
+.el-row{
+  font-size:0;
+}
+.el-col{
+  display:inline-block;
+  float:none;
 }

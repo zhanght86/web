@@ -11,11 +11,11 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-row :gutter="20">
-      <el-col :span="4" v-for="(item, index) in list" :key="index">
+    <ul class="grid">
+      <li class="item g-4" v-for="(item, index) in list" :key="index" style="padding:10px;">
         <visual :data="item"/>
-      </el-col>
-    </el-row>
+      </li>
+    </ul>
     <!-- 新增弹出层 -->
     <el-dialog title="新增视觉设计" :visible.sync="addPop" :close-on-click-modal="false">
       <el-form ref="form" :model="form" label-width="80px">
@@ -30,6 +30,9 @@
             <el-radio-button label="画册"></el-radio-button>
             <el-radio-button label="动画"></el-radio-button>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="关键字">
+          <el-input v-model="form.tag" placeholder="关键词不超过3个，每个不超过10个字，不同关键词用分号隔开！"></el-input>
         </el-form-item>
         <el-form-item label="封面：">
           <el-upload
@@ -102,6 +105,7 @@
         form: {
           name: '',
           category: '系统',
+          tag: '',
           pic: '',
           content: '',
           package: ''
@@ -112,19 +116,79 @@
       visual
     },
     created () {
-      axios.get(this.visualServer).then(res => {
-        this.list = res.data.data
-        // console.log(this.list)
-      })
+      this.getList()
     },
     methods: {
-      onSubmit () {
-        axios.get(this.visualAddServer, {
-          params: this.form
+      getList () {
+        const category = this.$route.params.category
+        let param = null
+        switch (category) {
+          case 'all':
+            param = ''
+            break
+          case 'system':
+            param = '系统'
+            break
+          case 'app':
+            param = '手机App'
+            break
+          case 'web':
+            param = '网站'
+            break
+          case 'book':
+            param = '画册'
+            break
+          case 'swf':
+            param = '动画'
+            break
+        }
+        this.queryList(this.visualServer + '?category=' + param)
+        console.log(category)
+      },
+      queryList (url) {
+        axios.get(url, {
         }).then(res => {
-          console.log(res)
-          this.addPop = false
+          this.list = res.data.data
         })
+      },
+      onSubmit () {
+        if (!this.form.name) {
+          this.$message({
+            message: '名称必须填写哦！',
+            type: 'warning'
+          })
+        } else if (!this.form.tag) {
+          this.$message({
+            message: '请填写相关的标签！',
+            type: 'warning'
+          })
+        } else if (!this.form.pic) {
+          this.$message({
+            message: '你还没有上传封面图片哦！',
+            type: 'warning'
+          })
+        } else if (!this.form.content) {
+          this.$message({
+            message: '你确定不上传详情的图片？',
+            type: 'warning'
+          })
+        } else if (!this.form.package) {
+          this.$message({
+            message: '给上传个附件咯！',
+            type: 'warning'
+          })
+        } else {
+          axios.get(this.visualAddServer, {
+            params: this.form
+          }).then(res => {
+            this.addPop = false
+            this.getList()
+            this.$message({
+              message: '恭喜，添加成功！',
+              type: 'success'
+            })
+          })
+        }
       },
       onAdd () {
         this.addPop = true
@@ -138,6 +202,7 @@
 <style>
 .inner{
   padding-top:60px;
+  height:100%;
 }
 .inner .crumb{
   height:60px;
