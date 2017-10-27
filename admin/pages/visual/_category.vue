@@ -2,10 +2,10 @@
   <div class="inner">
     <div class="crumb">
       <el-form :inline="true" :model="query" class="demo-form-inline">
-        <el-form-item label="名称：" class="g-16">
-          <el-input v-model="query.name" placeholder="请输入搜索关键词！" style="width:800px;"></el-input>
+        <el-form-item label="名称：">
+          <el-input v-model="query.name" placeholder="请输入搜索关键词！" style="width:400px;"></el-input>
         </el-form-item>
-        <el-form-item class="g-8 t-r">
+        <el-form-item class="btn-area">
           <el-button type="danger" @click="onReset">重置</el-button>
           <el-button type="primary" @click="onQuery">查询</el-button>
           <el-button type="success" @click="onAdd">新增</el-button>
@@ -17,6 +17,18 @@
         <visual :data="item"/>
       </li>
     </ul>
+    <el-dialog
+      title="确认删除"
+      :visible.sync="delModal.delModal"
+       :close-on-click-modal="false"
+      :show-close="false"
+      size="tiny">
+      <span>你确定要删除<span class="important">{{current.name}}</span>这条记录！</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delCancel">取 消</el-button>
+        <el-button type="primary" @click="delOk">确 定</el-button>
+      </span>
+    </el-dialog>
     <!-- 新增弹出层 -->
     <el-dialog title="新增视觉设计" :visible.sync="addPop" :close-on-click-modal="false">
       <el-form ref="form" :model="form" label-width="80px">
@@ -86,7 +98,8 @@
     upfile,
     file,
     visualServer,
-    visualAddServer
+    visualAddServer,
+    visualDelServer
   } from '../../config'
   import visual from '~/components/visual'
   import axios from 'axios'
@@ -97,6 +110,7 @@
         addPop: false,
         visualServer: visualServer,
         visualAddServer: visualAddServer,
+        visualDelServer: visualDelServer,
         file: file,
         upfile: upfile,
         list: [],
@@ -111,6 +125,14 @@
           content: '',
           package: ''
         }
+      }
+    },
+    computed: {
+      delModal () {
+        return this.$store.state.visual
+      },
+      current () {
+        return this.$store.state.visual.current
       }
     },
     components: {
@@ -144,7 +166,6 @@
             break
         }
         this.queryList(this.visualServer + '?category=' + param)
-        console.log(category)
       },
       queryList (url) {
         axios.get(url, {
@@ -210,6 +231,19 @@
       onReset () {
         this.query.name = ''
         this.queryList(this.visualServer)
+      },
+      delCancel () {
+        this.$store.commit('visual/toggleDelModal')
+      },
+      delOk () {
+        axios.get(this.visualDelServer + this.current.uId).then(res => {
+          this.$store.commit('visual/toggleDelModal')
+          this.getList()
+          this.$message({
+            message: '恭喜，删除成功！',
+            type: 'success'
+          })
+        })
       }
     }
   }
@@ -223,5 +257,20 @@
   height:60px;
   margin-top:-60px;
   padding:10px;
+}
+.btn-area{
+  position: absolute;
+  right:10px;
+}
+.el-form--inline .el-form-item{
+  margin-bottom:0 !important;
+}
+.el-form{
+  position: relative;
+}
+.important{
+  font-weight:bold;
+  padding:0 0.4rem;
+  color:#409EFF;
 }
 </style>

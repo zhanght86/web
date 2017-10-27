@@ -2,6 +2,14 @@
   <div class="visual">
     <span class="pic">
       <img :src="data.pic" alt="">
+      <div :class="'control ' + category(data.category)">
+        <el-tooltip content="编辑" placement="top">
+          <span class="iconfont icon-bianji"></span>
+        </el-tooltip>
+        <el-tooltip content="删除" placement="top">
+          <span class="iconfont icon-shanchu" @click="popDel(data)"></span>
+        </el-tooltip>
+      </div>
     </span>
     <span class="info">
       <b class="name"><span :class="'category ' + category(data.category)">{{data.category}}</span>{{data.name}}</b>
@@ -67,6 +75,11 @@
           case '动画':
             return 'swf'
         }
+      },
+      popDel (item) {
+        console.log('删除')
+        this.$store.commit('visual/toggleDelModal')
+        this.$store.commit('visual/setCurrent', item)
       }
     }
   }
@@ -95,6 +108,7 @@
   width:100%;
   transition:0.3s;
   position: relative;
+  z-index:99;
 }
 .pic:hover img{
   /* transform:scale(1.1) */
@@ -109,6 +123,7 @@
   padding:10px;box-sizing:border-box;
   font-size:14px;
   color:#999;
+  z-index:102;
 }
 .info .name{
   font-size:16px;
@@ -134,16 +149,52 @@
 .system{
   background:#2D8ADD;
 }
+.control.system{
+  background:rgba(45,138,221,0.8)
+}
 .app{
   background:#D94447;
+}
+.app.control{
+  background:rgba(217,68,71,0.8)
 }
 .web{
   background:#F58E00;
 }
+.web.control{
+  background:rgba(245,142,0,0.8)
+}
 .book{
   background:#76BE54;
 }
+.book.control{
+  background:rgba(118,190,84,0.8)
+}
 .swf{
   background:#7D61E7;
+}
+.swf.control{
+  background:rgba(125,97,231,0.8)
+}
+.visual .control{
+  position: absolute;
+  left:0;
+  top:0;
+  z-index:100;
+  width:100%;
+  height:100%;
+  text-align:center;
+  padding:25% 0;
+  opacity:0;
+  transition:0.3s;
+}
+.visual .control .iconfont{
+  font-size:2rem;
+  color:#fff;
+  margin:0 1rem;
+  cursor: pointer;
+}
+.visual:hover .control{
+  opacity:1;
 }
 </style>

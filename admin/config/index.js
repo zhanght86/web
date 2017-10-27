@@ -4,6 +4,7 @@ export const file = server + 'storage/app/uploads/' // 上传文件保存的路�
 export const upfile = server + 'public/upload' // 上传文件
 export const visualServer = server + 'public/visual'
 export const visualAddServer = server + 'public/visual/add'
+export const visualDelServer = server + 'public/visual/del/'
 export const menu = [{
   text: '首页',
   icon: '',

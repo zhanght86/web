@@ -40,7 +40,10 @@ class VisualController extends Controller
         $visual->save();
         return $visual;
     }
-    public function upfile (Request $request) {
-        return 1;
+    public function del (Request $request, $uId) {
+        $visual = Visual::where('uId', $uId);
+        $pic=$visual->select('pic')->get();
+        // $visual->delete();
+        return $pic;
     }
 }
