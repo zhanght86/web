@@ -217,6 +217,7 @@
       },
       onSuccess (res) {
         this.form[res.request.type] = res.data
+        console.log(res.data)
       },
       onQuery () {
         if (!this.query.name) {

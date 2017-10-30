@@ -1,7 +1,7 @@
 <template>
   <div class="visual">
     <span class="pic">
-      <img :src="data.pic" alt="">
+      <img :src="file + data.pic" alt="">
       <div :class="'control ' + category(data.category)">
         <el-tooltip content="编辑" placement="top">
           <span class="iconfont icon-bianji"></span>
@@ -29,6 +29,7 @@
   </div>
 </template>
 <script>
+  import {file} from '../config'
   import moment from 'moment'
   moment().utc()
   moment.locale('en', {
@@ -50,6 +51,11 @@
     }
   })
   export default {
+    data () {
+      return {
+        file: file
+      }
+    },
     created () {
     },
     props: {

@@ -41,16 +41,34 @@ class Upload extends Controller
                 //扩展名  
                 $ext = $file->getClientOriginalExtension();  
                 //文件类型  
-                $type = $file->getClientMimeType();  
+                $type = $file->getClientMimeType();
+                $category = $request->all()['type'];
                 //临时绝对路径  
                 $realPath = $file->getRealPath();  
-  
-                $filename = date('Y-m-d-H-i-S').'-'.uniqid().'.'.$ext;  
-  
+                $filename = $category.date('YmdHiS').uniqid().'.'.$ext;  
                 $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));  
-  
-                var_dump($bool);  
+                $result = array(
+                    'data' => $filename,
+                    'text' => '上传成功！',
+                    'status' => 1,
+                    'request' => $request->all()
+                );
+                return json_encode($result); 
             }
         }
+    }
+    public function delfile (Request $request, $file) {
+        if(Storage::disk('uploads')->delete($file)){
+            $out = array(
+                'msg' => '删除成功！',
+                'status' => 1
+            );
+        }else{
+            $out = array(
+                'msg' => '删除失败！',
+                'status' => 0
+            );
+        }
+        return json_encode($out); 
     }
 }

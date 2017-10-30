@@ -18,3 +18,4 @@ Route::get('/visual', 'VisualController@list');
 Route::get('/visual/add', 'VisualController@add');
 Route::get('/visual/del/{uId}', 'VisualController@del');
 Route::match(['get', 'post'], '/upload', 'Upload@upfile');
+Route::match(['get', 'post'], '/delfile/{file}', 'Upload@delfile');
