@@ -39,4 +39,9 @@ class CategoryController extends Controller
         $category->save();
         return $category;
     }
+    public function del (Request $request, $uId) {
+        $category = Category::where('uId', $uId)->first();
+        $category->delete();
+        return $category;
+    }
 }

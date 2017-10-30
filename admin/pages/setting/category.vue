@@ -13,7 +13,7 @@
                     <span class="iconfont icon-bianji" @click="handleEdit(item)"></span>
                   </el-tooltip>
                   <el-tooltip content="删除" placement="top">
-                    <span class="iconfont icon-shanchu"></span>
+                    <span class="iconfont icon-shanchu" @click="handleDel(item)"></span>
                   </el-tooltip>
                 </div>
               </div>
@@ -120,10 +120,20 @@
         <el-button type="primary" @click="editSubmit">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="删除"
+      :visible.sync="delModal"
+      width="30%">
+      <span>确认要删除（{{current.text}}）分类，删除操作不可逆，请谨慎！</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delModal = false">取 消</el-button>
+        <el-button type="primary" @click="delCategory(current)">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-import {layout, parentList, childList, addChild, categoryEdit} from '../../config'
+import {layout, parentList, childList, addChild, categoryEdit, categoryDel} from '../../config'
 import axios from 'axios'
 export default {
   layout: layout,
@@ -132,8 +142,10 @@ export default {
       activeName: null,
       addModal: false,
       editModal: false,
+      delModal: false,
       addChild: addChild,
       categoryEdit: categoryEdit,
+      categoryDel: categoryDel,
       currentParent: {},
       current: {},
       parent: [],
@@ -215,6 +227,21 @@ export default {
         this.getChild(this.activeName)
         this.$message({
           message: '恭喜，修改成功！',
+          type: 'success'
+        })
+      })
+    },
+    handleDel (item) {
+      this.delModal = true
+      this.current = item
+    },
+    delCategory (item) {
+      axios.get(categoryDel + this.current.uId, {
+      }).then(res => {
+        this.delModal = false
+        this.getChild(this.activeName)
+        this.$message({
+          message: '删除成功！',
           type: 'success'
         })
       })

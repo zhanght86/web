@@ -10,6 +10,7 @@ export const parentList = server + 'public/category/parent'
 export const childList = server + 'public/category/child/'
 export const addChild = server + 'public/category/add'
 export const categoryEdit = server + 'public/category/edit/'
+export const categoryDel = server + 'public/category/del/'
 export const menu = [{
   text: '首页',
   icon: '',
