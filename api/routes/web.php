@@ -23,3 +23,4 @@ Route::match(['get', 'post'], '/delfile/{file}', 'Upload@delfile');
 Route::get('/category/add', 'CategoryController@add');
 Route::get('/category/parent', 'CategoryController@parentlist');
 Route::get('/category/child/{tag}', 'CategoryController@childlist');
+Route::get('/category/edit/{uId}', 'CategoryController@edit');

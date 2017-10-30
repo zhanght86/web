@@ -30,4 +30,13 @@ class CategoryController extends Controller
         $result = Category::where('parent', $tag)->orderBy('sort', 'desc')->get();
         return $result;
     }
+    public function edit (Request $request, $uId) {
+        $category = Category::where('uId', $uId)->first();
+        $req = $request->all();
+        foreach ($req as $key => $value) {
+            $category->$key = $value;
+        }
+        $category->save();
+        return $category;
+    }
 }

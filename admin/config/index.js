@@ -8,6 +8,8 @@ export const visualDelServer = server + 'public/visual/del/'
 export const delfile = server + 'public/delfile/'
 export const parentList = server + 'public/category/parent'
 export const childList = server + 'public/category/child/'
+export const addChild = server + 'public/category/add'
+export const categoryEdit = server + 'public/category/edit/'
 export const menu = [{
   text: '首页',
   icon: '',
