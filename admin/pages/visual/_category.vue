@@ -52,6 +52,7 @@
             class="upload-demo"
             name="upFile"
             :data="{type: 'pic', file: this.file}"
+            :on-remove="onDelFile"
             :action="upfile"
             :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
@@ -97,6 +98,7 @@
     layout,
     upfile,
     file,
+    delfile,
     visualServer,
     visualAddServer,
     visualDelServer
@@ -112,6 +114,7 @@
         visualAddServer: visualAddServer,
         visualDelServer: visualDelServer,
         file: file,
+        delfile: delfile,
         upfile: upfile,
         list: [],
         query: {
@@ -244,6 +247,12 @@
             message: '恭喜，删除成功！',
             type: 'success'
           })
+        })
+      },
+      onDelFile (file, list) {
+        console.log(file.response.data)
+        axios.get(this.delfile + file.response.data).then(res => {
+          console.log(res)
         })
       }
     }

@@ -5,6 +5,7 @@ export const upfile = server + 'public/upload' // 上传文件
 export const visualServer = server + 'public/visual'
 export const visualAddServer = server + 'public/visual/add'
 export const visualDelServer = server + 'public/visual/del/'
+export const delfile = server + 'public/delfile/'
 export const menu = [{
   text: '首页',
   icon: '',
