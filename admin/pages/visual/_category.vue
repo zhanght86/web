@@ -1,5 +1,9 @@
 <template>
-  <div class="inner">
+  <div class="inner" ref="wrap">
+    <div class="mask"></div>
+    <nul v-if="nul">
+      <h2 slot="text">空的</h2>
+    </nul>
     <div class="crumb">
       <el-form :inline="true" :model="query" class="demo-form-inline">
         <el-form-item label="名称：">
@@ -20,7 +24,8 @@
     <el-dialog
       title="确认删除"
       :visible.sync="delModal.delModal"
-       :close-on-click-modal="false"
+      :close-on-click-modal="false"
+      width="30%"
       :show-close="false"
       size="tiny">
       <span>你确定要删除<span class="important">{{current.name}}</span>这条记录！</span>
@@ -107,6 +112,7 @@
   } from '../../config'
   import visual from '~/components/visual'
   import axios from 'axios'
+  import nul from '~/components/null'
   export default {
     layout: layout,
     data () {
@@ -118,6 +124,7 @@
         file: file,
         delfile: delfile,
         upfile: upfile,
+        nul: false,
         list: [],
         query: {
           name: ''
@@ -141,7 +148,8 @@
       }
     },
     components: {
-      visual
+      visual,
+      nul
     },
     created () {
       this.getList()
@@ -173,9 +181,15 @@
         this.queryList(this.visualServer + '?category=' + param)
       },
       queryList (url) {
+        let loading = this.$loading({
+          target: '.mask',
+          fullscreen: false,
+          text: '正在努力加载中！'
+        })
         axios.get(url, {
         }).then(res => {
           this.list = res.data.data
+          loading.close()
         })
       },
       onSubmit () {
@@ -278,6 +292,7 @@
 .inner{
   padding-top:60px;
   height:100%;
+  position: relative;
 }
 .inner .crumb{
   height:60px;
@@ -298,5 +313,12 @@
   font-weight:bold;
   padding:0 0.4rem;
   color:#409EFF;
+}
+.mask{
+  height:100%;
+  width:100%;
+  position: absolute;
+  top:0;
+  left:0;
 }
 </style>
