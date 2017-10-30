@@ -7,7 +7,6 @@ use App\Http\Model\Visual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Upload;
 
 class VisualController extends Controller
 {

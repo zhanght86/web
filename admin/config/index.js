@@ -6,6 +6,8 @@ export const visualServer = server + 'public/visual'
 export const visualAddServer = server + 'public/visual/add'
 export const visualDelServer = server + 'public/visual/del/'
 export const delfile = server + 'public/delfile/'
+export const parentList = server + 'public/category/parent'
+export const childList = server + 'public/category/child/'
 export const menu = [{
   text: '首页',
   icon: '',
@@ -72,5 +74,8 @@ export const menu = [{
   children: [{
     text: '切换布局',
     url: '/setting/layout'
+  }, {
+    text: '分类管理',
+    url: '/setting/category'
   }]
 }]

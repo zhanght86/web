@@ -19,3 +19,7 @@ Route::get('/visual/add', 'VisualController@add');
 Route::get('/visual/del/{uId}', 'VisualController@del');
 Route::match(['get', 'post'], '/upload', 'Upload@upfile');
 Route::match(['get', 'post'], '/delfile/{file}', 'Upload@delfile');
+
+Route::get('/category/add', 'CategoryController@add');
+Route::get('/category/parent', 'CategoryController@parentlist');
+Route::get('/category/child/{tag}', 'CategoryController@childlist');
