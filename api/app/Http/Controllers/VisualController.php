@@ -7,6 +7,7 @@ use App\Http\Model\Visual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Upload;
 
 class VisualController extends Controller
 {
@@ -44,8 +45,14 @@ class VisualController extends Controller
     public function del (Request $request, $uId) {
         $visual = Visual::where('uId', $uId);
         $pic=$visual->select('pic')->get(1)[0]['pic'];
-        Storage::disk('uploads')->delete($pic);
-        // $visual->delete();
-        return $pic;
+        $content=$visual->select('content')->get(1)[0]['content'];
+        $package=$visual->select('package')->get(1)[0]['package'];
+        if (Storage::disk('uploads')->delete($pic) && Storage::disk('uploads')->delete($content) && Storage::disk('uploads')->delete($package)) {
+            $visual->delete();
+            return json_encode(array(
+                'msg'=>"成功删除！",
+                'status'=> 1
+            ));
+        }
     }
 }

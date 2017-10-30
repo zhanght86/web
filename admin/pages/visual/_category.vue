@@ -64,6 +64,7 @@
             class="upload-demo"
             drag
             name="upFile"
+            :on-remove="onDelFile"
             :data="{type: 'content', file: this.file}"
             :action="upfile"
             :on-success="onSuccess"
@@ -79,6 +80,7 @@
             name="upFile"
             :data="{type: 'package', file: this.file}"
             :action="upfile"
+            :on-remove="onDelFile"
             accept="zip"
             :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
@@ -220,7 +222,11 @@
       },
       onSuccess (res) {
         this.form[res.request.type] = res.data
-        console.log(res.data)
+        console.log(res)
+        this.$message({
+          message: res.text,
+          type: 'success'
+        })
       },
       onQuery () {
         if (!this.query.name) {
@@ -252,7 +258,17 @@
       onDelFile (file, list) {
         console.log(file.response.data)
         axios.get(this.delfile + file.response.data).then(res => {
-          console.log(res)
+          if (res.data.status) {
+            this.$message({
+              message: res.data.msg,
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: res.data.msg,
+              type: 'error'
+            })
+          }
         })
       }
     }
