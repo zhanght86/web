@@ -25,13 +25,9 @@
 </template>
 <script>
   import { mapMutations } from 'vuex'
-  import {menu} from '../config'
+  import {navigation} from '../config'
+  import axios from 'axios'
   export default {
-    data () {
-      return {
-        menu: menu
-      }
-    },
     props: {
       mode: {
         type: String,
@@ -44,6 +40,10 @@
       hideSub: {
         type: Boolean,
         default: false
+      },
+      menu: {
+        type: Array,
+        default: []
       }
     },
     computed: {
@@ -51,14 +51,24 @@
         return this.$store.state.currentParent
       }
     },
+    data () {
+      return {
+        navigation: navigation,
+        currentRou: null
+      }
+    },
+    beforeCreate () {
+    },
     created () {
-      const rou = '/' + this.$route.path.split('/')[1]
-      this.$store.commit('setParent', rou)
-      this.menu.forEach((item, index) => {
-        if (item.url === rou) {
-          this.$store.commit('setAside', item.children)
-        }
-      })
+      this.getNavigation()
+      this.currentRou = '/' + this.$route.path.split('/')[1]
+      this.$store.commit('setParent', this.currentRou)
+      // this.menu.forEach((item, index) => {
+      //   console.log(item.url, rou)
+      //   if (item.url === rou) {
+      //     this.$store.commit('setAside', item.children)
+      //   }
+      // })
     },
     methods: {
       ...mapMutations({
@@ -68,13 +78,27 @@
         this.$router.replace(route)
       },
       showSub (route) {
+        this.jump(route)
         this.menu.forEach((item, index) => {
-          this.jump(route)
           if (item.url === route) {
             this.$store.commit('setAside', item.children)
             this.$store.commit('setChildren', '/')
           }
         })
+      },
+      getNavigation () {
+        axios.get(this.navigation).then(res => {
+          this.$store.commit('setMenu', res.data)
+          res.data.forEach((item, index) => {
+            if (item.url === this.currentRou) {
+              this.$store.commit('setAside', item.children)
+            }
+          })
+        })
+      },
+      setActive (item) {
+        const rou = '/' + this.$route.path.split('/')[1]
+        this.$store.commit('setParent', rou)
       }
     }
   }

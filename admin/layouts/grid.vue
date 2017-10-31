@@ -6,7 +6,7 @@
           <my-logo/>
         </el-col>
         <el-col :span="16">
-          <my-menu mode="horizontal" :collapse="false" :hideSub="true" />
+          <my-menu mode="horizontal" :collapse="false" :hideSub="true" :menu="menu"/>
         </el-col>
         <el-col :span="3">
           <my-headbar/>
@@ -20,7 +20,7 @@
       <div class="aside">
         <my-aside/>
       </div>
-      <nuxt style="background:#f9f9f9;"/>
+      <nuxt/>
     </div>
   </div>
 </template>
@@ -45,6 +45,9 @@ export default {
     },
     aside () {
       return this.$store.state.aside
+    },
+    menu () {
+      return this.$store.state.menu
     }
   },
   methods: {

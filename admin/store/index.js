@@ -3,7 +3,8 @@ export const state = () => ({
   aside: null,
   currentParent: '/',
   currentChildren: '/',
-  grid: 'aside'
+  grid: 'aside',
+  menu: []
 })
 
 export const mutations = {
@@ -12,11 +13,16 @@ export const mutations = {
   },
   setAside (state, props) {
     state.aside = props
+    console.log(state.aside)
   },
   setParent (state, props) {
     state.currentParent = props
   },
   setChildren (state, props) {
     state.currentChildren = props
+  },
+  setMenu (state, props) {
+    state.menu = props
+    console.log(state.menu, props)
   }
 }

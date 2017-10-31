@@ -181,15 +181,15 @@
         this.queryList(this.visualServer + '?category=' + param)
       },
       queryList (url) {
-        let loading = this.$loading({
-          target: '.mask',
-          fullscreen: false,
-          text: '正在努力加载中！'
-        })
+        // let loading = this.$loading({
+        //   target: '.mask',
+        //   fullscreen: false,
+        //   text: '正在努力加载中！'
+        // })
         axios.get(url, {
         }).then(res => {
           this.list = res.data.data
-          loading.close()
+          // loading.close()
         })
       },
       onSubmit () {
@@ -236,7 +236,6 @@
       },
       onSuccess (res) {
         this.form[res.request.type] = res.data
-        console.log(res)
         this.$message({
           message: res.text,
           type: 'success'

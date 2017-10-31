@@ -55,6 +55,6 @@ class CategoryController extends Controller
                 }
             }
         }
-        return $parent;
+        return json_encode($parent);
     }
 }

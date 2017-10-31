@@ -11,7 +11,6 @@
 <script>
 import {layout} from '../config'
 import card from '~/components/card'
-
 export default {
   head () {
     return {
@@ -24,11 +23,10 @@ export default {
       return this.$store.state.home.card
     }
   },
-  created () {
-    console.log(this.card)
-  },
   components: {
     card
+  },
+  methods: {
   }
 }
 </script>

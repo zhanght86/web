@@ -238,14 +238,12 @@ export default {
         this.parent = res.data
         this.activeName = res.data[0].tag
         this.currentParent = res.data[0]
-        console.log(res.data)
         this.getChild(res.data[0].tag)
       })
     },
     getChild (tag) {
       axios.get(childList + tag, {
       }).then(res => {
-        console.log(res.data)
         this.child = res.data
         this.child.unshift({
           text: '添加',
@@ -280,7 +278,7 @@ export default {
       }
     },
     addParentSubmit () {
-      if (!this.form.parent || !this.form.letter || !this.form.text) {
+      if (!this.form.letter || !this.form.text) {
         this.$message({
           message: '以上为必填项！',
           type: 'warning'
