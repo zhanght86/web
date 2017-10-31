@@ -2,11 +2,7 @@
   <div class="nav-panel" :style="theme">
     <ul class="row w mid-layout">
       <li class="col v-m g-18 nav">
-        <nuxt-link to="/visual">视觉设计</nuxt-link>
-        <nuxt-link to="/front">前端开发</nuxt-link>
-        <nuxt-link to="/blog">博文</nuxt-link>
-        <nuxt-link to="/about">关于我们</nuxt-link>
-        <nuxt-link to="/join">加入我们</nuxt-link>
+        <nuxt-link :to="item.url" v-for="(item, index) in nav" :key="index">{{item.text}}</nuxt-link>
       </li>
       <li class="col v-m g-6 t-r info">
         <a class="iconfont icon-erweima"></a>
@@ -16,11 +12,23 @@
   </div>
 </template>
 <script>
-  import {theme} from '../config'
+  import {theme, navParent} from '../config'
+  import axios from 'axios'
   export default {
     data () {
       return {
-        theme: theme
+        theme: theme,
+        nav: []
+      }
+    },
+    created () {
+      this.getNavParent()
+    },
+    methods: {
+      getNavParent () {
+        axios(navParent).then((res) => {
+          this.nav = res.data
+        })
       }
     }
   }

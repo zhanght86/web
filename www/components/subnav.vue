@@ -1,6 +1,6 @@
 <template>
   <div class="mid-layout sub-nav">
-    <nuxt-link v-for="(item, index) in data" :to="item.url" :key="index"><span :style="'color:' + item.color">{{item.tag}}</span>{{item.text}}</nuxt-link>
+    <nuxt-link v-for="(item, index) in data" :to="item.url" :key="index"><span :style="'color:' + item.color">{{item.letter | uppercase}}</span>{{item.text}}</nuxt-link>
   </div>
 </template>
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <nuxt-link :to="'/visual/detail/' + data.id" class="visual">
+  <nuxt-link :to="'/visual/detail/' + data.uId" class="visual">
     <span class="pic">
-      <img :src="data.pic" alt="">
+      <img :src="file + data.pic" alt="">
     </span>
     <span class="info">
       <b class="name">{{data.name}}</b>
@@ -13,18 +13,24 @@
           {{data.thumb}}
         </i>
         <i class="col v-m t-r">
-          {{data.time}}
+          {{data.created_time}}
         </i>
       </span>
     </span>
   </nuxt-link>
 </template>
 <script>
+  import {file} from '../config'
   export default {
     props: {
       data: {
         type: Object,
         default: {}
+      }
+    },
+    data () {
+      return {
+        file: file
       }
     }
   }

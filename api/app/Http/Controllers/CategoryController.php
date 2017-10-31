@@ -57,4 +57,12 @@ class CategoryController extends Controller
         }
         return json_encode($parent);
     }
+    public function parent (Request $request) {
+        $parent = Category::where('parent', null)->where('show', '是')->orderBy('sort', 'desc')->get();
+        return json_encode($parent);
+    }
+    public function children (Request $request, $tag) {
+        $children = Category::where('parent', $tag)->where('show', '是')->orderBy('sort', 'desc')->get();
+        return json_encode($children);
+    }
 }
