@@ -78,7 +78,7 @@ export const menu = [{
     text: '切换布局',
     url: '/setting/layout'
   }, {
-    text: '分类管理',
+    text: '导航管理',
     url: '/setting/category'
   }]
 }]

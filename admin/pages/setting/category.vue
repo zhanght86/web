@@ -1,6 +1,6 @@
 <template>
   <div class="manage">
-    <el-tabs v-model="activeName" @tab-click="tabClick" class="cate-wrap">
+    <el-tabs v-model="activeName" @tab-click="tabClick" type="card" class="cate-wrap" editable @edit="handleTabsEdit">
       <el-tab-pane :label="item.text" :name="item.tag" :search="item.tag" v-for="(item, index) in parent" :key="index">
         <el-row :gutter="10">
           <el-col :span="4" v-for="(item, index) in child" :key="index">
@@ -23,7 +23,7 @@
       </el-tab-pane>
     </el-tabs>
     <el-dialog
-      :title="'新增分类'"
+      :title="'新增二级导航'"
       :visible.sync="addModal"
       :close-on-click-modal="false"
       width="50%">
@@ -69,6 +69,55 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="addModal = false">取 消</el-button>
         <el-button type="primary" @click="addSubmit">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      :title="'新增一级导航'"
+      :visible.sync="addParentModal"
+      :close-on-click-modal="false"
+      width="50%">
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="名称">
+          <el-input v-model="form.text"></el-input>
+        </el-form-item>
+        <el-form-item label="英文名称">
+          <el-input v-model="form.tag" @change="inputChange1"></el-input>
+        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="英文简写">
+              <el-input v-model="form.letter"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="颜色">
+              <el-color-picker v-model="form.color"></el-color-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16">
+            <el-form-item label="图标">
+              <el-input v-model="form.icon"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8" class="preview">
+            图标预览：<span :class="'iconfont ' + form.icon" :style="'color:' + form.color"></span>
+          </el-col>
+        </el-row>
+        <el-form-item label="链接">
+          <el-input v-model="form.url"></el-input>
+        </el-form-item>
+        <el-form-item label="排序">
+          <el-slider
+            v-model="form.sort"
+            show-input>
+          </el-slider>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addParentModal = false">取 消</el-button>
+        <el-button type="primary" @click="addParentSubmit">确 定</el-button>
       </span>
     </el-dialog>
     <el-dialog
@@ -130,6 +179,16 @@
         <el-button type="primary" @click="delCategory(current)">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="删除"
+      :visible.sync="delParentModal"
+      width="30%">
+      <span>确认要删除（{{current.text}}）分类，删除操作不可逆，请谨慎！</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delParentModal = false">取 消</el-button>
+        <el-button type="primary" @click="delParentCategory(current)">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -143,6 +202,8 @@ export default {
       addModal: false,
       editModal: false,
       delModal: false,
+      addParentModal: false,
+      delParentModal: false,
       addChild: addChild,
       categoryEdit: categoryEdit,
       categoryDel: categoryDel,
@@ -195,25 +256,56 @@ export default {
     handleAdd (item) {
       if (!item.id) {
         this.addModal = true
+        this.reset()
       }
     },
     addSubmit () {
       this.form.parent = this.activeName
-      axios.get(this.addChild, {
-        params: this.form
-      }).then(res => {
-        this.addModal = false
-        this.getChild(this.activeName)
+      if (!this.form.parent || !this.form.letter || !this.form.text) {
         this.$message({
-          message: '恭喜，添加成功！',
-          type: 'success'
+          message: '以上为必填项！',
+          type: 'warning'
         })
-      })
+      } else {
+        axios.get(this.addChild, {
+          params: this.form
+        }).then(res => {
+          this.addModal = false
+          this.getChild(this.activeName)
+          this.$message({
+            message: '恭喜，添加成功！',
+            type: 'success'
+          })
+        })
+      }
+    },
+    addParentSubmit () {
+      if (!this.form.parent || !this.form.letter || !this.form.text) {
+        this.$message({
+          message: '以上为必填项！',
+          type: 'warning'
+        })
+      } else {
+        axios.get(this.addChild, {
+          params: this.form
+        }).then(res => {
+          this.addParentModal = false
+          this.getParent()
+          this.$message({
+            message: '恭喜，添加成功！',
+            type: 'success'
+          })
+        })
+      }
     },
     inputChange (value) {
       console.log(value)
       this.form.icon = 'icon-' + value
       this.form.url = '/' + this.activeName + '/' + value
+    },
+    inputChange1 (value) {
+      this.form.icon = 'icon-' + value
+      this.form.url = '/' + value
     },
     handleEdit (item) {
       this.form = item
@@ -236,7 +328,7 @@ export default {
       this.current = item
     },
     delCategory (item) {
-      axios.get(categoryDel + this.current.uId, {
+      axios.get(categoryDel + item.uId, {
       }).then(res => {
         this.delModal = false
         this.getChild(this.activeName)
@@ -245,6 +337,36 @@ export default {
           type: 'success'
         })
       })
+    },
+    reset () {
+      this.form = {
+        parent: '',
+        text: '',
+        letter: '',
+        tag: '',
+        icon: 'icon-',
+        color: '#409EFF',
+        url: '',
+        sort: 0
+      }
+    },
+    handleTabsEdit (targetName, action) {
+      if (action === 'add') {
+        this.addParentModal = true
+        this.reset()
+      } else {
+        this.parent.forEach((item, index) => {
+          if (targetName === item.tag) {
+            this.delParentModal = true
+            this.current = item
+          }
+        })
+      }
+    },
+    delParentCategory () {
+      this.delParentModal = false
+      this.delCategory(this.current)
+      this.getParent()
     }
   }
 }

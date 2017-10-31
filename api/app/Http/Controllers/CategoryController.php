@@ -23,7 +23,7 @@ class CategoryController extends Controller
         return $category;
     }
     public function parentlist (Request $request) {
-        $result = Category::where('parent', null)->orderBy('created_time', 'desc')->get();
+        $result = Category::where('parent', null)->orderBy('sort', 'desc')->get();
         return $result;
     }
     public function childlist (Request $request, $tag) {
