@@ -239,6 +239,7 @@ export default {
         this.activeName = res.data[0].tag
         this.currentParent = res.data[0]
         this.getChild(res.data[0].tag)
+        this.$store.commit('setMenu', res.data)
       })
     },
     getChild (tag) {
@@ -330,6 +331,7 @@ export default {
       }).then(res => {
         this.delModal = false
         this.getChild(this.activeName)
+        this.getParent()
         this.$message({
           message: '删除成功！',
           type: 'success'
@@ -364,7 +366,6 @@ export default {
     delParentCategory () {
       this.delParentModal = false
       this.delCategory(this.current)
-      this.getParent()
     }
   }
 }
