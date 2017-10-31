@@ -4,7 +4,7 @@
 <script>
 export default {
   created () {
-    this.$router.replace('/visual/new')
+    this.$router.replace('/visual/all')
   }
 }
 </script>

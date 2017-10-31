@@ -36,7 +36,6 @@ html {
 }
 .container{
   height: 100vh;
-  background:#F0F0F0;
 }
 .main-content{
   padding-top:20px;

@@ -4,3 +4,4 @@ export const file = server + 'storage/app/uploads/' // 上传文件保存的路�
 export const navParent = server + 'public/navigation/parent'
 export const navChild = server + 'public/navigation/children/visual'
 export const visualServer = server + 'public/visual'
+export const visualDetail = server + 'public/visual/detail/'

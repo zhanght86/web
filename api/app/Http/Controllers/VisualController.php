@@ -54,4 +54,8 @@ class VisualController extends Controller
             ));
         }
     }
+    public function detail (Request $request, $uId) {
+        $visual = Visual::where('uId', $uId)->first();
+        return json_encode($visual);
+    }
 }
