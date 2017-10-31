@@ -9,3 +9,8 @@ h1,h2,h3,h4,h5,h6,p,ul,dt,dl,dd,ul,li,b,i{margin:0;list-style:none;padding:0;fon
 .v-t{vertical-align: top}.v-m{vertical-align: middle;}.v-b{vertical-align: bottom;}
 .mid-layout{width:1280px;margin:0 auto;}
 .t-r{text-align:right;}.t-c{text-align:center;}.t-l{text-align:left;}
+.btn{display:inline-block;font-size:14px;text-decoration:none;color:#fff;padding:12px 20px;border-radius:3px;transition:0.3s;}
+.btn:hover{opacity:0.9;}
+.btn:active{opacity:1;}
+.btn-default{background:#2B93DC;}
+.btn.full{width:100%;text-align:center;}

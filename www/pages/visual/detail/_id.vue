@@ -1,13 +1,22 @@
 <template>
   <div class="detail">
-    <div class="grid">
-      <div class="item g-16">
+    <div class="grid" v-if="detail">
+      <div class="item g-18">
         <div class="preview">
           <img :src="file + detail.content" alt="">
         </div>
       </div>
-      <div class="item g-8">
+      <div class="item g-6">
         <h1 class="title">详细信息</h1>
+        <p class="item"><span class="name">名称：</span>{{detail.name}}</p>
+        <p class="item"><span class="name">作者：</span>{{detail.author || '不详'}}</p>
+        <p class="item"><span class="name">分类：</span>{{detail.category}}</p>
+        <p class="item"><span class="name">喜欢：</span>{{detail.thumb}}</p>
+        <p class="item"><span class="name">浏览：</span>{{detail.view}}</p>
+        <p class="item"><span class="name">标签：</span>{{detail.tag}}</p>
+        <p class="item"><span class="name">创建日期：</span>{{detail.created_time}}</p>
+        <p class="item"><span class="name">修改日期：</span>{{detail.updated_time}}</p>
+        <a :href="file + detail.package" class="btn btn-default full" style="margin-top:20px;">下载</a>
       </div>
     </div>
   </div>
@@ -22,7 +31,7 @@ export default {
   data () {
     return {
       id: null,
-      detail: {},
+      detail: null,
       file: file
     }
   },
@@ -69,5 +78,10 @@ export default {
 }
 .detail{
   margin-bottom:2rem;
+}
+.detail .item{
+  font-size:14px;
+  color:#666;
+  padding:10px;
 }
 </style>

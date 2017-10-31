@@ -2,6 +2,7 @@
   <section class="container">
     <app-header/>
     <app-nav/>
+    <app-toolbar/>
     <nuxt class="mid-layout main-content"/>
     <app-footer/>
   </section>
@@ -10,11 +11,13 @@
 import header from '~/components/header'
 import navigator from '~/components/navigator'
 import footer from '~/components/footer'
+import toolbar from '~/components/toolbar'
 export default {
   components: {
     'app-header': header,
     'app-nav': navigator,
-    'app-footer': footer
+    'app-footer': footer,
+    'app-toolbar': toolbar
   }
 }
 </script>
