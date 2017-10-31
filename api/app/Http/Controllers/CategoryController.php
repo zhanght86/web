@@ -44,4 +44,17 @@ class CategoryController extends Controller
         $category->delete();
         return $category;
     }
+    public function nav (Request $request) {
+        $parent = Category::where('parent', null)->orderBy('sort', 'desc')->get();
+        $children = Category::where('parent' , '<>' , null)->orderBy('sort', 'desc')->get()->groupBy('parent');
+        $out= array();
+        foreach($parent as $key=>$value) {
+            foreach($children as $k=>$v) {
+                if ($value['tag'] == $k) {
+                    $parent[$key]['children'] = $v;
+                }
+            }
+        }
+        return $parent;
+    }
 }

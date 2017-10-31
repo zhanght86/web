@@ -25,3 +25,4 @@ Route::get('/category/parent', 'CategoryController@parentlist');
 Route::get('/category/child/{tag}', 'CategoryController@childlist');
 Route::get('/category/edit/{uId}', 'CategoryController@edit');
 Route::get('/category/del/{uId}', 'CategoryController@del');
+Route::get('/navigation', 'CategoryController@nav');
