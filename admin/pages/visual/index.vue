@@ -6,9 +6,9 @@ import {layout} from '../../config'
 export default {
   layout: layout,
   created () {
-    setTimeout(() => {
-      this.$router.replace('/visual/all')
-    }, 200)
+    // setTimeout(() => {
+    //   this.$router.replace('/visual/all')
+    // }, 200)
   }
 }
 </script>
