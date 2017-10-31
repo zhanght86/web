@@ -192,7 +192,7 @@
   </div>
 </template>
 <script>
-import {layout, parentList, childList, addChild, categoryEdit, categoryDel} from '../../config'
+import {layout, parentList, childList, addChild, categoryEdit, categoryDel, navigation} from '../../config'
 import axios from 'axios'
 export default {
   layout: layout,
@@ -239,7 +239,8 @@ export default {
         this.activeName = res.data[0].tag
         this.currentParent = res.data[0]
         this.getChild(res.data[0].tag)
-        this.$store.commit('setMenu', res.data)
+        console.log(res.data)
+        // this.$store.commit('setMenu', res.data)
       })
     },
     getChild (tag) {
@@ -271,6 +272,7 @@ export default {
         }).then(res => {
           this.addModal = false
           this.getChild(this.activeName)
+          // this.getMenu()
           this.$message({
             message: '恭喜，添加成功！',
             type: 'success'
@@ -290,12 +292,19 @@ export default {
         }).then(res => {
           this.addParentModal = false
           this.getParent()
+          // this.getMenu()
           this.$message({
             message: '恭喜，添加成功！',
             type: 'success'
           })
         })
       }
+    },
+    getMenu () {
+      axios.get(navigation, {
+      }).then(res => {
+        this.$store.commit('setMenu', res.data)
+      })
     },
     inputChange (value) {
       console.log(value)
@@ -332,6 +341,7 @@ export default {
         this.delModal = false
         this.getChild(this.activeName)
         this.getParent()
+        // this.getMenu()
         this.$message({
           message: '删除成功！',
           type: 'success'
