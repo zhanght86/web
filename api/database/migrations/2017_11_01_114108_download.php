@@ -13,7 +13,14 @@ class Download extends Migration
      */
     public function up()
     {
-        //
+        Schema::defaultStringLength(191);
+        Schema::create('download', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('uId',50)->nullable();
+            $table->string('downloadId',20)->nullable();
+            $table->string('owener',20)->nullable();
+            $table->integer('time')->nullable();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class Download extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('download');
     }
 }
