@@ -21,6 +21,7 @@ class Visual extends Migration
             $table->string('name',50)->nullable();
             $table->string('category',16)->nullable();
             $table->string('author',10)->nullable();
+            $table->string('show', 4)->nullable();
             $table->string('pic',100)->nullable();
             $table->text('content',300)->nullable();
             $table->string('package',100)->nullable();

@@ -21,6 +21,7 @@ class Category extends Migration
             $table->string('parent',20)->nullable();
             $table->string('tag',16)->nullable();
             $table->string('letter',2)->nullable();
+            $table->string('show', 4)->nullable();
             $table->string('icon',20)->nullable();
             $table->string('color',7)->nullable();
             $table->string('url',30)->nullable();
