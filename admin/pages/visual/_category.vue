@@ -59,6 +59,7 @@
             :data="{type: 'pic', file: this.file}"
             :on-remove="onDelFile"
             :action="upfile"
+            :file-list="piclist"
             :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传一张jpg/png文件，且不超过500kb</div>
@@ -72,6 +73,7 @@
             :on-remove="onDelFile"
             :data="{type: 'content', file: this.file}"
             :action="upfile"
+            :file-list="contentlist"
             :on-success="onSuccess"
             multiple>
             <i class="el-icon-upload"></i>
@@ -86,7 +88,8 @@
             :data="{type: 'package', file: this.file}"
             :action="upfile"
             :on-remove="onDelFile"
-            accept="zip"
+            list-type="zip"
+            :file-list="packagelist"
             :on-success="onSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传zip、rar文件，且不超过100Mb</div>
@@ -126,6 +129,9 @@
         upfile: upfile,
         nul: false,
         list: [],
+        piclist: [],
+        contentlist: [],
+        packagelist: [],
         query: {
           name: ''
         },
@@ -221,6 +227,7 @@
             type: 'warning'
           })
         } else {
+          console.log(this.form)
           axios.get(this.visualAddServer, {
             params: this.form
           }).then(res => {
@@ -237,8 +244,19 @@
         this.addPop = true
       },
       onSuccess (res) {
-        console.log(res)
-        this.form[res.request.type] = res.data
+        switch (res.request.type) {
+          case 'pic':
+            this.form.pic = res.data
+            break
+          case 'content':
+            this.form.content += res.data + ';'
+            break
+          case 'package':
+            this.form.package = res.data
+            this.form.ext = res.ext
+            this.form.size = res.size
+            break
+        }
         this.$message({
           message: res.text,
           type: 'success'
