@@ -15,6 +15,7 @@ module.exports = {
   },
   css: [
     '~/assets/style/global.css',
+    'element-ui/lib/theme-chalk/index.css',
     '~/assets/fonts/iconfont.css'
   ],
   /*
@@ -28,6 +29,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+    vendor: ['element-ui'],
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
@@ -38,5 +40,20 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  vender: [
+    'element-ui'
+  ],
+  babel: {
+    'plugins': [['component', [
+      {
+        'libraryName': 'element-ui',
+        'styleLibraryName': 'theme-chalk'
+      },
+      'transform-async-to-generator',
+      'transform-runtime'
+    ]]],
+    comments: true
+  },
+  plugins: ['~plugins/element-ui']
 }

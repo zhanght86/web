@@ -47,7 +47,7 @@ class UserController extends Controller
         $status = 1;
         $msg = '登录成功！';
         $data = null;
-        if (count($req) !== 2) {
+        if (count($req) !== 3) {
             $status = 0;
             $msg = '参数不合法！';
         } else {

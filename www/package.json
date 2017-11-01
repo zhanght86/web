@@ -15,6 +15,7 @@
   "dependencies": {
     "@xkeshi/vue-qrcode": "^0.3.0",
     "axios": "^0.17.0",
+    "element-ui": "next",
     "nuxt": "^1.0.0-rc11"
   },
   "devDependencies": {
