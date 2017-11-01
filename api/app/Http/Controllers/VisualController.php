@@ -38,6 +38,7 @@ class VisualController extends Controller
         $visual->updated_time = time();
         $visual->thumb = 0;
         $visual->view = 0;
+        $visual->download = 0;
         $visual->save();
         return $visual;
     }

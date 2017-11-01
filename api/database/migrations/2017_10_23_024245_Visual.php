@@ -28,8 +28,9 @@ class Visual extends Migration
             $table->string('ext',10)->nullable();
             $table->integer('size')->nullable();
             $table->string('tag',40)->nullable();
-            $table->string('thumb',5)->nullable();
-            $table->string('view',5)->nullable();
+            $table->integer('thumb')->nullable();
+            $table->integer('view')->nullable();
+            $table->integer('download')->nullable();
             $table->integer('created_time')->time();
             $table->integer('updated_time')->time();
             // $table->rememberToken();

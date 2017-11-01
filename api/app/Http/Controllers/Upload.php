@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Http\Model\Visual;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class Upload extends Controller
@@ -74,7 +76,10 @@ class Upload extends Controller
         }
         return json_encode($out); 
     }
-    public function downfile (Request $request, $file) {
-        return response()->download(realpath(base_path('storage/app/uploads')).'/'.$file, 'ceshi.png');
+    public function downfile (Request $request, $uId, $name, $file, $size) {
+        $visual = Visual::where('uId', $uId)->first();
+        $visual -> download = $visual['download'] + 1;
+        $visual->save();
+        return response()->download(realpath(base_path('storage/app/uploads')).'/'.$file, $name);
     }
 }
