@@ -30,3 +30,6 @@ Route::get('/category/del/{uId}', 'CategoryController@del');
 Route::get('/navigation', 'CategoryController@nav');
 Route::get('/navigation/parent', 'CategoryController@parent');
 Route::get('/navigation/children/{tag}', 'CategoryController@children');
+
+Route::get('/user/add', 'UserController@add');
+Route::get('/user/author', 'UserController@author');
