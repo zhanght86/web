@@ -33,3 +33,5 @@ Route::get('/navigation/children/{tag}', 'CategoryController@children');
 
 Route::get('/user/add', 'UserController@add');
 Route::get('/user/author', 'UserController@author');
+Route::any('/captcha', 'CaptchaController@result');
+Route::any('/captcha/check', 'CaptchaController@check');
