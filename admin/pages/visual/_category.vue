@@ -135,7 +135,9 @@
           tag: '',
           pic: '',
           content: '',
-          package: ''
+          package: '',
+          ext: '',
+          size: 0
         }
       }
     },
@@ -235,6 +237,7 @@
         this.addPop = true
       },
       onSuccess (res) {
+        console.log(res)
         this.form[res.request.type] = res.data
         this.$message({
           message: res.text,

@@ -39,7 +39,8 @@ class Upload extends Controller
             if ($file -> isValid()){
                 $originalName = $file->getClientOriginalName();  
                 //扩展名  
-                $ext = $file->getClientOriginalExtension();  
+                $size = $file->getClientSize();
+                $ext = $file->getClientOriginalExtension(); 
                 //文件类型  
                 $type = $file->getClientMimeType();
                 $category = $request->all()['type'];
@@ -49,6 +50,8 @@ class Upload extends Controller
                 $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));  
                 $result = array(
                     'data' => $filename,
+                    'ext' => $ext,
+                    'size' => $size,
                     'text' => '上传成功！',
                     'status' => 1,
                     'request' => $request->all()
@@ -70,5 +73,8 @@ class Upload extends Controller
             );
         }
         return json_encode($out); 
+    }
+    public function downfile (Request $request, $file) {
+        return response()->download(realpath(base_path('storage/app/uploads')).'/'.$file, 'ceshi.png');
     }
 }

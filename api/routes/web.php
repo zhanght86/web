@@ -20,6 +20,7 @@ Route::get('/visual/del/{uId}', 'VisualController@del');
 Route::get('/visual/detail/{uId}', 'VisualController@detail');
 Route::match(['get', 'post'], '/upload', 'Upload@upfile');
 Route::match(['get', 'post'], '/delfile/{file}', 'Upload@delfile');
+Route::get('/download/{file}', 'Upload@downfile');
 
 Route::get('/category/add', 'CategoryController@add');
 Route::get('/category/parent', 'CategoryController@parentlist');

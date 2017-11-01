@@ -24,6 +24,8 @@ class Visual extends Migration
             $table->string('pic',100)->nullable();
             $table->text('content',300)->nullable();
             $table->string('package',100)->nullable();
+            $table->string('ext',10)->nullable();
+            $table->integer('size')->nullable();
             $table->string('tag',40)->nullable();
             $table->string('thumb',5)->nullable();
             $table->string('view',5)->nullable();

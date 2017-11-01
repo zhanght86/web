@@ -16,13 +16,13 @@
         <p class="item"><span class="name">标签：</span>{{detail.tag}}</p>
         <p class="item"><span class="name">创建日期：</span>{{detail.created_time}}</p>
         <p class="item"><span class="name">修改日期：</span>{{detail.updated_time}}</p>
-        <a :href="file + detail.package" class="btn btn-default full" style="margin-top:20px;">下载</a>
+        <a :href="download + detail.package" class="btn btn-default full" style="margin-top:20px;">下载</a>
       </div>
     </div>
   </div>
 </template>
 <script>
-import {visualDetail, file} from '../../../config'
+import {visualDetail, file, download} from '../../../config'
 import axios from 'axios'
 export default {
   head: {
@@ -32,7 +32,8 @@ export default {
     return {
       id: null,
       detail: null,
-      file: file
+      file: file,
+      download: download
     }
   },
   created () {
@@ -44,6 +45,11 @@ export default {
       axios(visualDetail + this.id).then((res) => {
         console.log(res.data)
         this.detail = res.data
+      })
+    },
+    downfile (file) {
+      axios(download + file).then((res) => {
+        console.log(res.data)
       })
     }
   }
