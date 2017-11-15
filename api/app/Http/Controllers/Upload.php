@@ -86,8 +86,8 @@ class Upload extends Controller
         $base_img = $request->upFile;
         $base_img = explode(',', $base_img);
         $prefix = 'fc_';
-        $output_file = $prefix.time().rand(100,999).'.jpg';
+        $output_file = $prefix.date('YmdHiS').uniqid().'.jpg';
         $a = Storage::disk('uploads')->put($output_file, base64_decode($base_img[1]));
-        var_dump(base64_decode($a));
+        var_dump(base64_decode($output_file));
     }
 }
