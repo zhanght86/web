@@ -51,7 +51,7 @@ class UserController extends Controller
             $status = 0;
             $msg = '参数不合法！';
         } else {
-            $data = User::where('username', $request->username)->where('password', md5($request->password))->get();
+            $data = User::where('username', $request->username)->where('password', md5($request->password))->first();
             if (!count($data)){
                 $status = 2;
                 $msg = '用户名或者密码有误！';
@@ -61,7 +61,8 @@ class UserController extends Controller
         $out = array(
             'status'=> $status,
             'data' => $data,
-            'msg'=> $msg
+            'msg'=> $msg,
+            'captcha'=> 0
         );
         return json_encode($out);
     }

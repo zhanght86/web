@@ -20,6 +20,7 @@ Route::get('/visual/del/{uId}', 'VisualController@del');
 Route::get('/visual/detail/{uId}', 'VisualController@detail');
 Route::match(['get', 'post'], '/upload', 'Upload@upfile');
 Route::match(['get', 'post'], '/delfile/{file}', 'Upload@delfile');
+Route::match(['get', 'post'], '/upload/base64', 'Upload@base64');
 Route::get('/download/{uId}/{name}/{file}/{size}', 'Upload@downfile');
 
 Route::get('/category/add', 'CategoryController@add');
@@ -31,7 +32,9 @@ Route::get('/navigation', 'CategoryController@nav');
 Route::get('/navigation/parent', 'CategoryController@parent');
 Route::get('/navigation/children/{tag}', 'CategoryController@children');
 
-Route::get('/user/add', 'UserController@add');
-Route::get('/user/author', 'UserController@author');
-Route::any('/captcha', 'CaptchaController@result');
-Route::any('/checkcaptcha', 'CaptchaController@check');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/user/add', 'UserController@add');
+    Route::get('/user/author', 'UserController@author');
+    Route::any('/captcha', 'CaptchaController@result');
+    Route::any('/checkcaptcha', 'CaptchaController@check');
+});

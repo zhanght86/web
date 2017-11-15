@@ -16,7 +16,8 @@
     "@xkeshi/vue-qrcode": "^0.3.0",
     "axios": "^0.17.0",
     "element-ui": "next",
-    "nuxt": "^1.0.0-rc11"
+    "nuxt": "^1.0.0-rc11",
+    "vue-local-storage": "^0.1.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

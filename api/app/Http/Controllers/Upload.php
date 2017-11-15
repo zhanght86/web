@@ -82,4 +82,12 @@ class Upload extends Controller
         $visual->save();
         return response()->download(realpath(base_path('storage/app/uploads')).'/'.$file, $name);
     }
+    public function base64 (Request $request) {
+        $base_img = $request->upFile;
+        $base_img = explode(',', $base_img);
+        $prefix = 'fc_';
+        $output_file = $prefix.time().rand(100,999).'.jpg';
+        $a = Storage::disk('uploads')->put($output_file, base64_decode($base_img[1]));
+        var_dump(base64_decode($a));
+    }
 }
