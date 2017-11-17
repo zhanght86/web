@@ -50,10 +50,8 @@ class UserController extends Controller
         $msg = '登录成功！';
         $key = '';
         $identity = 0;
-        $ip = $this->get_onlineip();
-        $platform = $this->get_os();
-        $browser = $this->GetBrowser();
         $data = null;
+        $ip = null;
         if (count($req) !== 3) {
             $status = 0;
             $msg = '参数不合法！';
@@ -82,6 +80,7 @@ class UserController extends Controller
                     $data->password = '******';
                     $status = 1;
                     /*写入log */
+                    $ip = $this->get_onlineip();
                     $log = new LoginLog;
                     $log->lId = md5(uniqid());
                     $log->uId = $data->uId;
@@ -90,8 +89,10 @@ class UserController extends Controller
                     $log->degree = $identity;
                     $log->time = time();
                     $log->ip = $ip;
-                    $log->platform = $platform;
-                    $log->browser = $browser;
+                    $log->platform = $this->get_os();
+                    $log->browser = $this->GetBrowser();
+                    $add = $this->GetIpLookup($ip);
+                    $log->address = $add['country'].$add['province'].$add['city'];
                     $log->save ();
                 } else {
                     $msg = '您没有权限登录本平台，请联系超级管理员！';
@@ -107,11 +108,10 @@ class UserController extends Controller
             'identity'=>$identity,
             'captcha'=> 0,
             'key'=>'通过'.$key.'登录',
-            'ip'=>$request->getClientIp(),
+            'ip'=>$ip,
             'time'=>time()
         );
         return json_encode($out);
-        // return $this->get_onlineip();
     }
     function get_onlineip() { 
         header("content-type:text/html;charset=utf-8");
@@ -165,4 +165,22 @@ class UserController extends Controller
         }
         return $Browser;
     }
+    function GetIpLookup($ip = ''){  
+        if(empty($ip)){  
+            $ip = GetIp();  
+        }  
+        $res = @file_get_contents('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' . $ip);  
+        if(empty($res)){ return false; }  
+        $jsonMatches = array();  
+        preg_match('#\{.+?\}#', $res, $jsonMatches);  
+        if(!isset($jsonMatches[0])){ return false; }  
+        $json = json_decode($jsonMatches[0], true);  
+        if(isset($json['ret']) && $json['ret'] == 1){  
+            $json['ip'] = $ip;  
+            unset($json['ret']);  
+        }else{  
+            return false;  
+        }  
+        return $json;  
+    }  
 }
