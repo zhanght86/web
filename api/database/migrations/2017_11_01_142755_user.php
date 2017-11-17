@@ -27,7 +27,7 @@ class User extends Migration
             $table->string('depart',16)->nullable();
             $table->string('face', 30)->nullable();
             $table->string('identity',16)->nullable();
-            $table->string('status',10)->nullable();
+            $table->integer('status')->nullable();
             $table->integer('created_time')->time();
             $table->integer('updated_time')->time();
         });

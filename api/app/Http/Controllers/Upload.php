@@ -88,6 +88,6 @@ class Upload extends Controller
         $prefix = 'fc_';
         $output_file = $prefix.date('YmdHiS').uniqid().'.jpg';
         $a = Storage::disk('uploads')->put($output_file, base64_decode($base_img[1]));
-        var_dump(base64_decode($output_file));
+        return $output_file;
     }
 }
