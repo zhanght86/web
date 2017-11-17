@@ -18,7 +18,7 @@ class User extends Migration
             $table->string('uId',50)->nullable();
             $table->string('username',20)->nullable();
             $table->string('name',20)->nullable();
-            $table->string('password',30)->nullable();
+            $table->string('password',50)->nullable();
             $table->string('QQ',16)->nullable();
             $table->string('wechat',16)->nullable();
             $table->string('phone',16)->nullable();

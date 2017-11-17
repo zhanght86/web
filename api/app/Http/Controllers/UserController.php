@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Model\User;
+use App\Http\Model\LoginLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,7 @@ class UserController extends Controller
             $user->uId = md5(uniqid());
             $user->created_time = time();
             $user->updated_time = time();
+            $user->status = 0;
             $user->save ();
             $data = $user;
         }
@@ -48,6 +50,9 @@ class UserController extends Controller
         $msg = '登录成功！';
         $key = '';
         $identity = 0;
+        $ip = $this->get_onlineip();
+        $platform = $this->get_os();
+        $browser = $this->GetBrowser();
         $data = null;
         if (count($req) !== 3) {
             $status = 0;
@@ -76,8 +81,20 @@ class UserController extends Controller
                     $msg = '登录成功！';
                     $data->password = '******';
                     $status = 1;
+                    /*写入log */
+                    $log = new LoginLog;
+                    $log->lId = md5(uniqid());
+                    $log->uId = $data->uId;
+                    $log->loginname = $request->username;
+                    $log->key = $key;
+                    $log->degree = $identity;
+                    $log->time = time();
+                    $log->ip = $ip;
+                    $log->platform = $platform;
+                    $log->browser = $browser;
+                    $log->save ();
                 } else {
-                    $msg = '您没有权限登录本平台！';
+                    $msg = '您没有权限登录本平台，请联系超级管理员！';
                     $status = 3;
                     $data = null;
                 }
@@ -94,5 +111,58 @@ class UserController extends Controller
             'time'=>time()
         );
         return json_encode($out);
+        // return $this->get_onlineip();
+    }
+    function get_onlineip() { 
+        header("content-type:text/html;charset=utf-8");
+        $url = 'http://www.ip138.com/ip2city.asp';  
+        $info = file_get_contents($url); 
+        preg_match('|<center>(.*?)</center>|i', $info, $m);  
+        $arr = explode('[', $m[1]);
+        $arr = explode(']', $arr[1]);
+        return $arr[0]; 
+    } 
+    function get_os() {
+        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
+            $os = $_SERVER['HTTP_USER_AGENT'];
+            if (preg_match('/win/i', $os)) {
+                $os = 'Windows';
+            } else if (preg_match('/mac/i', $os)) {
+                $os = 'MAC';
+            } else if (preg_match('/linux/i', $os)) {
+                $os = 'Linux';
+            } else if (preg_match('/unix/i', $os)) {
+                $os = 'Unix';
+            } else if (preg_match('/bsd/i', $os)) {
+                $os = 'BSD';
+            } else {
+                $os = 'Other';
+            }
+            return $os;
+        } else {
+            return 'unknow';
+        }
+    }
+    function GetBrowser() {
+        $Browser = $_SERVER['HTTP_USER_AGENT'];
+        if (preg_match('/MSIE/i',$Browser)) {
+            $Browser = 'MSIE';
+        }
+        elseif (preg_match('/Firefox/i',$Browser)) {
+            $Browser = 'Firefox';
+        }
+        elseif (preg_match('/Chrome/i',$Browser)) {
+            $Browser = 'Chrome';
+        }
+        elseif (preg_match('/Safari/i',$Browser)) {
+            $Browser = 'Safari';
+        }
+        elseif (preg_match('/Opera/i',$Browser)) {
+            $Browser = 'Opera';
+        }
+        else {
+            $Browser = 'Other';
+        }
+        return $Browser;
     }
 }
