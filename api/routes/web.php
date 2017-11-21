@@ -39,3 +39,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::any('/captcha', 'CaptchaController@result');
     Route::any('/checkcaptcha', 'CaptchaController@check');
 });
+
+Route::get('/article', 'ArticleController@list');
+Route::match(['get', 'post'], '/article/add', 'ArticleController@add');
+Route::match(['get', 'post'], '/articles/{id}', 'ArticleController@info');
