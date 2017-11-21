@@ -9,7 +9,7 @@ class User extends Model
 {
     use Notifiable;
     protected $fillable = [
-        'uId', 'username', 'password', 'name', 'QQ', 'wechat', 'phone', 'email', 'sex', 'depart', 'face', 'identity', 'status', 'created_time', 'updated_time'
+        'uId', 'username', 'password', 'name', 'QQ', 'wechat', 'phone', 'email', 'sex', 'depart', 'face', 'identity', 'status', 'created_time', 'updated_time', 'birthday', 'domicile', 'birthplace'
     ];
     protected $table = 'user';
     public $timestamps = false;

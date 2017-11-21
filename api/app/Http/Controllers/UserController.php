@@ -44,6 +44,16 @@ class UserController extends Controller
         );
         return json_encode($out);
     }
+    public function edit (Request $request, $id) {
+        $user = User::where('uId', $id)->first();
+        $req = $request->all();
+        foreach ($req as $key => $value) {
+            $user->$key = $value;
+        }
+        $user->updated_time = time();
+        $user->save();
+        return $user;
+    }
     public function author (Request $request) {
         $req = $request->all();
         $status = 1;

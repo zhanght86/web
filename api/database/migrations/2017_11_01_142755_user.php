@@ -25,11 +25,14 @@ class User extends Migration
             $table->string('email',16)->nullable();
             $table->string('sex',4)->nullable();
             $table->string('depart',16)->nullable();
-            $table->string('face', 30)->nullable();
+            $table->string('face', 50)->nullable();
             $table->string('identity',16)->nullable();
             $table->integer('status')->nullable();
             $table->integer('created_time')->time();
             $table->integer('updated_time')->time();
+            $table->integer('birthday')->nullable();
+            $table->string('domicile', 50)->nullable();
+            $table->string('birthplace', 50)->nullable();
         });
     }
 

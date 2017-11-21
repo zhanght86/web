@@ -34,6 +34,7 @@ Route::get('/navigation/children/{tag}', 'CategoryController@children');
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/user/add', 'UserController@add');
+    Route::get('/user/edit/{id}', 'UserController@edit');
     Route::get('/user/author', 'UserController@author');
     Route::any('/captcha', 'CaptchaController@result');
     Route::any('/checkcaptcha', 'CaptchaController@check');
