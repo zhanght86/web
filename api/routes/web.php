@@ -43,3 +43,11 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('/article', 'ArticleController@list');
 Route::match(['get', 'post'], '/article/add', 'ArticleController@add');
 Route::match(['get', 'post'], '/articles/{id}', 'ArticleController@info');
+
+Route::match(['get', 'post'], '/category/user/add', 'UserCategoryController@add');
+Route::match(['get', 'post'], '/category/user', 'UserCategoryController@list');
+Route::match(['get', 'post'], '/category/user/del/{id}', 'UserCategoryController@del');
+
+Route::match(['get', 'post'], '/category/article/add', 'ArticleCategoryController@add');
+Route::match(['get', 'post'], '/category/article', 'ArticleCategoryController@list');
+Route::match(['get', 'post'], '/category/article/del/{id}', 'ArticleCategoryController@del');
