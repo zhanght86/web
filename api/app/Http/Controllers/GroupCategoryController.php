@@ -42,6 +42,11 @@ class GroupCategoryController extends Controller
     public function del (Request $request, $id) {
         $category = GroupCategory::where('gId', $id)->first();
         $category->delete();
+        $son = GroupCategory::where('pId', $id)->get();
+        // $son->delete();
+        foreach($son as $key=>$value) {
+            $value->delete();
+        }
         return $category;
     }
 }
