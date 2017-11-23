@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/user/add', 'UserController@add');
     Route::get('/user/edit/{id}', 'UserController@edit');
     Route::get('/user/author', 'UserController@author');
+    Route::get('/user/unlock', 'UserController@unlock');
     Route::any('/captcha', 'CaptchaController@result');
     Route::any('/checkcaptcha', 'CaptchaController@check');
 });
@@ -55,3 +56,9 @@ Route::match(['get', 'post'], '/category/article/del/{id}', 'ArticleCategoryCont
 Route::match(['get', 'post'], '/category/group/add', 'GroupCategoryController@add');
 Route::match(['get', 'post'], '/category/group', 'GroupCategoryController@list');
 Route::match(['get', 'post'], '/category/group/del/{id}', 'GroupCategoryController@del');
+
+
+Route::match(['get', 'post'], '/setting/theme/add', 'ThemeController@add');
+Route::match(['get', 'post'], '/setting/theme/set', 'ThemeController@setTheme');
+Route::match(['get', 'post'], '/setting/theme/{id}', 'ThemeController@info');
+Route::match(['get', 'post'], '/setting/theme', 'ThemeController@list');

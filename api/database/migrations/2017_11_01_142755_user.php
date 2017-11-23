@@ -33,6 +33,7 @@ class User extends Migration
             $table->integer('birthday')->nullable();
             $table->string('domicile', 50)->nullable();
             $table->string('birthplace', 50)->nullable();
+            $table->string('theme', 10)->nullable();
         });
     }
 

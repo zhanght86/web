@@ -123,6 +123,12 @@ class UserController extends Controller
         );
         return json_encode($out);
     }
+    public function unlock (Request $request) {
+        $data = User::where('uId', $request->id)->where('password', md5($request->password))->first();
+        if (count($data)) {
+            return $data;
+        }
+    }
     function get_onlineip() { 
         header("content-type:text/html;charset=utf-8");
         $url = 'http://www.ip138.com/ip2city.asp';  
