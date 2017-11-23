@@ -51,3 +51,7 @@ Route::match(['get', 'post'], '/category/user/del/{id}', 'UserCategoryController
 Route::match(['get', 'post'], '/category/article/add', 'ArticleCategoryController@add');
 Route::match(['get', 'post'], '/category/article', 'ArticleCategoryController@list');
 Route::match(['get', 'post'], '/category/article/del/{id}', 'ArticleCategoryController@del');
+
+Route::match(['get', 'post'], '/category/group/add', 'GroupCategoryController@add');
+Route::match(['get', 'post'], '/category/group', 'GroupCategoryController@list');
+Route::match(['get', 'post'], '/category/group/del/{id}', 'GroupCategoryController@del');
