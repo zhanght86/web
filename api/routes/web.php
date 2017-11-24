@@ -60,5 +60,5 @@ Route::match(['get', 'post'], '/category/group/del/{id}', 'GroupCategoryControll
 
 Route::match(['get', 'post'], '/setting/theme/add', 'ThemeController@add');
 Route::match(['get', 'post'], '/setting/theme/set', 'ThemeController@setTheme');
-Route::match(['get', 'post'], '/setting/theme/{id}', 'ThemeController@info');
+Route::match(['get', 'post'], '/setting/theme/{name}', 'ThemeController@info');
 Route::match(['get', 'post'], '/setting/theme', 'ThemeController@list');

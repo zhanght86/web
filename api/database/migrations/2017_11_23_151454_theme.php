@@ -18,6 +18,8 @@ class Theme extends Migration
             $table->string('tId',50)->nullable();
             $table->string('uId',50)->nullable();
             $table->string('color', 8)->nullable();
+            $table->string('activecolor', 8)->nullable();
+            $table->string('css', 20)->nullable();
             $table->string('name', 10)->nullable();
             $table->integer('created_time')->nullable();
             $table->integer('update_time')->nullable();
