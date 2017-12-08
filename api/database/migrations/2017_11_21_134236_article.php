@@ -23,11 +23,12 @@ class Article extends Migration
             $table->string('summary',120)->nullable();
             $table->string('cover',50)->nullable();
             $table->string('author',16)->nullable();
-            $table->boolean('publish')->nullable();
-            $table->boolean('recommend')->nullable();
-            $table->boolean('fine')->nullable();
+            $table->integer('publish')->nullable();
+            $table->integer('recommend')->nullable();
+            $table->integer('fine')->nullable();
             $table->longText('description', 5000)->nullable();
-            $table->boolean('original')->nullable();
+            $table->longText('md')->nullable();
+            $table->integer('original')->nullable();
             $table->string('originallink', 50)->nullable();
             $table->integer('created_time')->nullable();
             $table->integer('updated_time')->nullable();

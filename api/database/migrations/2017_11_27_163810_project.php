@@ -22,7 +22,7 @@ class Project extends Migration
             $table->string('category',20)->nullable();
             $table->string('tag',50)->nullable();
             $table->string('cover',50)->nullable();
-            $table->string('content',4000)->nullable();
+            $table->string('content',10000)->nullable();
             $table->string('file',50)->nullable();
             $table->string('preview',50)->nullable();
             $table->string('mode',15)->nullable();

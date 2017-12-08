@@ -9,7 +9,7 @@ class Article extends Model
 {
     use Notifiable;
     protected $fillable = [
-        'aId', 'title', 'category', 'tags', 'editor', 'summary', 'cover', 'author', 'publish', 'recommend', 'fine', 'description', 'original', 'created_time', 'updated_time', 'originallink'
+        'aId', 'title', 'category', 'tags', 'editor', 'summary', 'cover', 'author', 'publish', 'recommend', 'fine', 'description', 'original', 'created_time', 'updated_time', 'originallink', 'md'
     ];
     protected $table = 'article';
     public $timestamps = false;
