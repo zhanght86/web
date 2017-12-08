@@ -44,6 +44,7 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('/article', 'ArticleController@list');
 Route::match(['get', 'post'], '/article/add', 'ArticleController@add');
 Route::match(['get', 'post'], '/articles/{id}', 'ArticleController@info');
+Route::match(['get', 'post'], '/download/article/{id}', 'ArticleController@download');
 
 Route::get('/project', 'ProjectController@list');
 Route::match(['get', 'post'], '/project/add', 'ProjectController@add');

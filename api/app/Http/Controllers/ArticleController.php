@@ -38,10 +38,15 @@ class ArticleController extends Controller
         $articles->thumb = 0;
         $articles->view = 0;
         $articles->save();
-        return $articles;
+        return Storage::disk('uploads')->put($articles->aId.'.md', $request->md);
+        // return $articles;
     }
     public function info (Request $request, $id) {
         $article = Article::where('aId', $id)->first();
         return $article;
+    }
+    public function download (Request $request, $id) {
+        $content = Article::where('aId', $id)->first();
+        return response()->download(realpath(base_path('storage/app/uploads')).'/'.$content->aId.'.md', $content->title.'.md');
     }
 }
