@@ -27,18 +27,28 @@ class ArticleController extends Controller
         return $articles;
     }
     public function add (Request $request) {
+        $id = md5(uniqid());
         $articles = new Article;
         $req = $request->all();
         foreach ($req as $key => $value) {
-            $articles->$key = $value;
+            if ($key == 'description') {
+                $articles->html = $id.'.html';
+                $articles->description = $value;
+            } else if($key == 'md') {
+                $articles->md = $id.'.md';
+            } else {
+                $articles->$key = $value;
+            }
         }
-        $articles->aId = md5(uniqid());
+        $articles->aId = $id;
         $articles->created_time = time();
         $articles->updated_time = time();
         $articles->thumb = 0;
         $articles->view = 0;
         $articles->save();
-        return Storage::disk('uploads')->put($articles->aId.'.md', $request->md);
+        Storage::disk('uploads')->put($id.'.md', $request->md);
+        Storage::disk('uploads')->put($id.'.html', $request->description);
+        return $articles;
         // return $articles;
     }
     public function info (Request $request, $id) {
